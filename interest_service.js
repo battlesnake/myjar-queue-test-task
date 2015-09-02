@@ -47,6 +47,7 @@ function start_interest_service(config) {
 			return curried;
 
 			function curried(data) {
+				console.log(JSON.stringify(data));
 				/* Transform the data */
 				var mapped = mapper(data);
 				/* Set the token */
