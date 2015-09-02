@@ -1,10 +1,14 @@
 'use strict';
 
+var assert = require('assert');
+
+test_interest_solver();
+test_solution_formatter();
+
 function test_interest_solver() {
 	var solver = require('./interest_solver');
 
 	function run_test() {
-		var assert = require('assert');
 		var tests = [
 			[{ sum: 123, days: 5 }, { interest: 18.45, totalSum: 141.45 }],
 			[{ sum: 687, days: 3 }, { interest: 61.83, totalSum: 748.83 }],
@@ -28,4 +32,20 @@ function test_interest_solver() {
 		return actual.interest === expect.interest && actual.totalSum === expect.totalSum;
 	}
 
+}
+
+function test_solution_formatter() {
+	var solution_formatter = require('./interest_solution_formatter');
+
+	var args = {
+		sum: 123,
+		days: 5,
+		interest: 18.45,
+		totalSum: 141.45,
+		token: 'myIdentifier'
+	};
+
+	var example = '{ "sum": 123, "days": 5, "interest": 18.45, "totalSum": 141.45, "token": "myIdentifier" }';
+
+	assert.equal(solution_formatter(args), example, 'Solution formatter');
 }

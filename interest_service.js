@@ -8,7 +8,7 @@ var q = require('q');
 
 var amqp = require('./amqp_wrapper');
 var interest_solver = require('./interest_solver');
-var format = require('./format');
+var solution_formatter = require('./interest_solution_formatter');
 
 module.exports = {
 	start: start_interest_service
@@ -51,8 +51,10 @@ function start_interest_service(config) {
 				var mapped = mapper(data);
 				/* Set the token */
 				mapped.token = config.token;
+				/* Format the result */
+				var json = solution_formatter(mapped);
 				/* Send the result */
-				return endpoints.sink.writeObject(mapped);
+				return endpoints.sink.writeString(json, { contentType: 'application/json' });
 			}
 		}
 
