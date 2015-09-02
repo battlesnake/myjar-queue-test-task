@@ -20,6 +20,11 @@ function solve_wrap(solver) {
 	return function (data) {
 		var sum = data.sum;
 		var days = data.days;
+
+		if (!(sum > 0 && days > 0) || sum === Infinity || days === Infinity) {
+			throw new RangeError('Invalid input (underflow)');
+		}
+
 		var interest = solver(sum * precision, days) / precision;
 
 		return {
