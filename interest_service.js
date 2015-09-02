@@ -8,7 +8,6 @@ var q = require('q');
 
 var amqp = require('./amqp_wrapper');
 var interest_solver = require('./interest_solver');
-var format = require('./format');
 
 module.exports = {
 	start: start_interest_service
