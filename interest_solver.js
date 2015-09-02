@@ -15,10 +15,7 @@ module.exports = {
 //	solve: solve_wrap(solve_naïve)
 };
 
-if (!module.parent) {
-	run_test();
-}
-
+/* Wrap a solver for export */
 function solve_wrap(solver) {
 	return function (data) {
 		var sum = data.sum;
@@ -113,22 +110,4 @@ function solve_optim(sum, days) {
 	var remaining = days % period;
 	/* Solution */
 	return growth_per_period * periods + growth_to_day[remaining];
-}
-
-function run_test() {
-	var assert = require('assert');
-	var tests = [
-		[{ sum: 123, days: 5 }, { interest: 18.45, totalSum: 141.45 }],
-		[{ sum: 687, days: 3 }, { interest: 61.83, totalSum: 748.83 }],
-		[{ sum: 213, days: 25 }, { interest: 149.1, totalSum: 362.1 }]
-	];
-	tests.forEach(function (this_test, idx) {
-		assert(validate_result.apply(null, this_test), "Test #" + (idx + 1) + " failed");
-	});
-}
-
-function validate_result(query, expect) {
-	expect = expect || query;
-	var actual = module.exports.solve(query);
-	return actual.interest === expect.interest && actual.totalSum === expect.totalSum;
 }
