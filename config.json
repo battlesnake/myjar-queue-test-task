@@ -1,0 +1,6 @@
+{
+	"url": "amqp://myjar:myjar@impact.ccat.eu",
+	"source": "interest-queue",
+	"sink": "solved-interest-queue",
+	"token": "Kartuliõis"
+}
