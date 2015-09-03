@@ -1,7 +1,5 @@
 'use strict';
 
-var q = require('q');
-
 var config = require('./config');
 var interest_service = require('./interest_service');
 

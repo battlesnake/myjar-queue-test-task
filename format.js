@@ -10,7 +10,7 @@
  * incorrect.
  *
  * I un-removed this file later as I need it to write JSON anyway, in order to
- * avoid prec
+ * avoid precision errors when representing floats.
  */
 
 module.exports = format;

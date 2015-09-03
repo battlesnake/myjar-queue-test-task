@@ -40,8 +40,8 @@ function test_solution_formatter() {
 	var args = {
 		sum: 123,
 		days: 5,
-		interest: 18.45,
-		totalSum: 141.45,
+		interest: 18.450001,
+		totalSum: 141.44999,
 		token: 'myIdentifier'
 	};
 

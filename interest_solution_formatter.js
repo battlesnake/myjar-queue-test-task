@@ -1,14 +1,17 @@
 'use strict';
 
+/*
+ * Manually write JSON to avoid precision errors with floats
+ */
+
 var format = require('./format');
 
-var fmt = '{ "sum": $sum, "days": $days, "interest": $interest, "totalSum": $totalSum, "token": $token }';
+var template = '{ "sum": $sum, "days": $days, "interest": $interest, "totalSum": $totalSum, "token": $token }';
 
 module.exports = formatter;
 
-/* Manually write JSON to avoid precision errors with floats */
 function formatter(solution) {
-	return format(fmt, solution, function (value) {
+	return format(template, solution, function (value) {
 		if (typeof value === 'number') {
 			if (value === Math.floor(value)) {
 				return value.toFixed(0);

@@ -41,23 +41,21 @@ function solve_wrap(solver) {
 
 /*
  * Daily interest:
- *                   ╭────╮
+ *                   ╭─
  *                   │ 1% → !(day%3) && day%5
- *                   │    │
+ *                   │
  *                   │ 2% → day%3 && !(day%5)
- *   interest(day) = ┤    │
+ *   interest(day) = ┤
  *                   │ 3% → !(day%3) && !(day%3)
- *                   │    │
+ *                   │
  *                   │ 4% → day%3 && day%5
- *                   ╰────╯
+ *                   ╰─
+ *
+ * O(N) time
+ * O(1) space
  */
 function solve_naïve(sum, days) {
-	/*
-	 * Iterates over each day, calculating interest per day.
-	 *
-	 * O(N) time
-	 * O(1) space
-	 */
+	/* Iterates over each day, calculating interest per day */
 	var interest = 0;
 	for (var day = 1; day <= days; day++) {
 		var div3 = (day % 3) === 0;
@@ -80,12 +78,14 @@ function solve_naïve(sum, days) {
  * As interest is summed daily (not compounded), the interest
  * accumulated over the first 15 days is the same as that of the next 15
  * days (and so forth).  This allows us to do a little optimization for
- * large numbers of days.
+ * large numbers of days.  If interest were compounded instead, the daily
+ * rounding would introduce a non-linearity to the daily propagation, preventing
+ * us from being able to do such an optimisation.
  *
  * We pre-calculate the interest accumulated over a 15-day block, then calculate
  * how many 15-day blocks there are.  For the remaining <15 days, we could use
  * the naïve solver, but we have already calculated the required value while we
- * calculated the value for a 15-day block.  Dynamic programming FTW
+ * incrementally calculated the value for a 15-day block.
  *
  * O(1) time
  * O(1) space

@@ -1,7 +1,7 @@
 'use strict';
 
 /*
- * Uses interest_solver to respond to queries received over AMPQ
+ * Uses interest_solver to respond to queries received over AMQP
  */
 
 var q = require('q');
