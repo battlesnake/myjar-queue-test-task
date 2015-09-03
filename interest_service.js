@@ -28,7 +28,10 @@ function start_interest_service(config) {
 	function interest_service(endpoints) {
 
 		/* Bind the mapper to the input socket */
-		endpoints.source.readObject(map_data(interest_solver.solve));
+		endpoints.source.readObject(map_data(interest_solver.solve))
+			.catch(function (error) {
+				console.warn("Failed to process message:\n\t%s\nStack trace:\n%s", error.message, error.stack);
+			});
 
 		return {
 			stop: stop_service

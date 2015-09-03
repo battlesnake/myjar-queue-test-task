@@ -70,32 +70,36 @@ function bind_source(channel, queue) {
 			};
 
 			function readObject(callback) {
-				readString(function (str) {
+				return readString(function (str) {
 					var obj = JSON.parse(str);
 					return callback(obj);
 				});
 			}
 
 			function readString(callback) {
-				readBuffer(function (buffer) {
+				return readBuffer(function (buffer) {
 					var str = buffer.toString();
 					return callback(str);
 				});
 			}
 
 			function readBuffer(callback) {
+				var deferred = q.defer();
 				channel.consume(queue, function (msg) {
 					if (msg === null) {
+						deferred.reject(null);
 						return;
 					}
 					return q.nfcall(callback, msg.content)
 						.then(function () {
 							channel.ack(msg);
+							deferred.resolve();
 						}, function (error) {
 							channel.nack(msg);
-							throw error;
+							deferred.reject(error);
 						});
 				});
+				return deferred.promise;
 			}
 		});
 }

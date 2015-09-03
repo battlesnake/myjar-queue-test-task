@@ -21,6 +21,9 @@ function solve_wrap(solver) {
 		var sum = data.sum;
 		var days = data.days;
 
+		if (typeof sum !== 'number' || typeof days !== 'number') {
+			throw new RangeError('Invalid input (not a number)');
+		}
 		if (!(sum > 0 && days > 0) || sum === Infinity || days === Infinity) {
 			throw new RangeError('Invalid input (underflow)');
 		}
